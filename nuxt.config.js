@@ -1,9 +1,8 @@
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'dugun.com',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'tr-TR'
     },
     meta: [
       { charset: 'utf-8' },
@@ -12,16 +11,23 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.webp' }
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
+  ssr: false,
+
+  loading: '~/components/loading.vue',
+
   css: [
+    '@/assets/css/style.css'
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
+  // Plugins
   plugins: [
+    { src : '~/plugins/vue-js-modal', ssr: false },
+    { src : '~/plugins/repositories'},
+    { src : '~/plugins/cacheManager'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

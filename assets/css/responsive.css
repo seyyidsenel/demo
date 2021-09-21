@@ -1,0 +1,10 @@
+
+@media only screen and (max-width : 320px){
+  .button{font-size:13px;}
+  .dfCount {font-size:12px !important;}
+  .control{font-size:13px;}
+  .label{font-size:14px !important;}
+  button, input, select, textarea{font-size: 90%;}
+  .selectPhone{width:90px;}
+  .customPhone .innerField:first-child{margin:0 10px 0 0;}
+}
