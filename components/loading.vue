@@ -14,9 +14,15 @@ export default {
     loading: false
   }),
   methods: {
+    /**
+     * this.$nuxt.$loading.start() => trigger open
+     */
     start() {
       this.loading = true
     },
+    /**
+     * this.$nuxt.$loading.finish() => trigger close
+     */
     finish() {
       this.loading = false
     }

@@ -52,9 +52,19 @@ export default {
   name: "formInput",
   props: ['input'],
   methods : {
+
+    /**
+     * Inputların ikonlarına tıkladığında, current olan input'a focuslar.
+     * @param _this
+     */
     focusCurrentInput(_this){
       _this.target.parentNode.querySelector("input").focus();
     },
+
+    /**
+     * Telefon mask format : (xxx) xxx xx-xx
+     * @param _this
+     */
     maskPhone(_this){
       let x = _this.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,3})/);
       _this.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
@@ -77,7 +87,7 @@ export default {
 .innerField{position: relative;}
 .innerField .formIcon.icon_select{top:20px;}
 .customPhone{display: flex;width: 100%;justify-content: space-between;}
-.label{font-size:var(--label-font-size);letter-spacing: -0.27px;color: #1A1A1A;margin:0 0 5px 0;}
+.label{font-size:var(--label-font-size);letter-spacing: -0.27px;color: var(--text-form-black);margin:0 0 5px 0;}
 input[type="text"],
 input[type="email"],
 input[type="phone"],
@@ -93,5 +103,4 @@ textarea{width:100%;resize:none;height:var(--default-textarea);padding: 15px;}
 .formIcon.icon_select{background-image: url("~assets/images/icon-down.svg");width:12px;height: 7px;top:40px;}
 ::-webkit-calendar-picker-indicator {color: rgba(0, 0, 0, 0);opacity: 0;}
 .selectPhone{width: 110px;}
-
 </style>

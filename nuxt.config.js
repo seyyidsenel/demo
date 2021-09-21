@@ -30,18 +30,12 @@ export default {
     { src : '~/plugins/cacheManager'},
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: [
-  ],
-
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-  ],
+    ['nuxt-lazy-load', {
+      defaultImage: '/placeholder.png',
+    }]
+  ]
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {
-  }
 }

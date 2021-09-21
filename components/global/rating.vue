@@ -33,11 +33,8 @@ export default {
 .rating[data-ratio="3"] li:nth-child(3) ~ li:not(.count){background-image: url("~assets/images/star-empty.svg");}
 .rating[data-ratio="4"] li:nth-child(4) ~ li:not(.count){background-image: url("~assets/images/star-empty.svg");}
 .rating[data-ratio="5"] li:nth-child(5) ~ li:not(.count){background-image: url("~assets/images/star-empty.svg");}
-.count{font-size:13px;color: #5F5F5F;margin:0 0 0 5px;}
-
+.count{font-size:13px;color: var(--text-soft-black);margin:0 0 0 5px;}
 .examination{margin:0 0 0 10px;display: flex;align-items: center;}
 .iconExamination{background-image: url("~assets/images/viewer.svg");width:13px;height: 18px;display: inline-block;}
-.examText{font-size:13px;color: #5F5F5F;margin:0 0 0 5px;}
-
-
+.examText{font-size:13px;color: var(--text-soft-black);margin:0 0 0 5px;}
 </style>

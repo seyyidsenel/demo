@@ -4,7 +4,7 @@
     <source media="(max-width: 767px)" :srcset="mobile">
     <source media="(min-width: 768px) and (max-width: 1023px)" :srcset="tablet">
     <source media="(min-width: 1024px)" :srcset="desktop">
-    <img :src="desktop" :alt="alt">
+    <img :data-src="desktop" :alt="alt">
     <span class="imgTitle">{{title}}</span>
   </picture>
 

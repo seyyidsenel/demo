@@ -1,4 +1,6 @@
 
+// api wrapper => instance axios
+
 import axios from 'axios';
 import defaultOptions from './config'
 
@@ -61,7 +63,8 @@ function handleResponse (response) {
 
 // error handling
 function handleError (response){
-  // error handling code's in here
+  // swagger'da api'lerin içerisinde error model'i göremediğim için responsu direk return ediyorum.
+  // todo: herhangi bir handle işlemi yapılmadı.
   return response
 }
 

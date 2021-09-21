@@ -6,8 +6,21 @@
 @import "../css/modal.css";
 @import "../css/responsive.css";
 
+/* ROOT CSS */
+:root {
+  --btn-primary-border-color: #db0962;
+  --btn-primary-background-color: #DB0962;
+  --btn-border-radius: 4px;
+  --btn-font-size: 15px;
+  --text-pink: #DB0962;
+  --default-font: 'Montserrat', sans-serif;
+  --text-soft-black : #5F5F5F;
+  --text-form-black : #1A1A1A;
+}
+/* ROOT CSS */
+
 /* Default CSS */
-* { font-family: 'Montserrat', sans-serif; }
+* { font-family: var(--default-font) }
 a{text-decoration: none;}
 .dfPadding{padding: 0 15px;}
 .lockedBody{overflow: hidden;}

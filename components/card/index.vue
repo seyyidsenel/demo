@@ -35,7 +35,7 @@
       <!-- View & Get Offer -->
       <div class="d-flex align-items-center justify-content-between btnColumn2 offerWrapper">
         <button class="button primaryBorder">İncele</button>
-        <button class="button primaryBg" @click="getCompaniesForm(data.id)">Ücretsiz Teklif Al</button>
+        <button class="button primaryBg" @click="getCompaniesForm(data)">Ücretsiz Teklif Al</button>
       </div>
       <!-- View & Get Offer END -->
 
@@ -55,16 +55,22 @@ export default {
     rating  : () => import('~/components/global/rating.vue'),
   },
   methods : {
-    async getCompaniesForm(companiesId){
+    /**
+     * Metot gönderilen companiesId'nin geriye teklif form'unu dinamik getirir.
+     * Her form 1 kere istek atılır ve sessionStorage'a cacheManager aracılığıyla set edilir.
+     * Sonraki çağırmalarda browser kapanana kadar cache'den getirilir data.
+     * Cache'de var ise ordan okunur, yok ise yeniden istek atılır.
+     * @param companies
+     * @returns {Promise<void>}
+     */
+    async getCompaniesForm(companies){
       this.$nuxt.$loading.start();
-      let form = this.$getCompaniesFormCache(companiesId);
-      console.log(form);
-      if (!form) {
-        form = await this.$repositories.companyApi.getFormById(companiesId);
-      }
+      let form = this.$getCompaniesFormCache(companies.id);
+      if (!form) form = await this.$repositories.companyApi.getFormById(companies.id); // cache'de form yoksa yeniden istek atılır.
       this.$store.commit('modules/companies/SET_COMPANIES_FORM',form)
+      this.$store.commit('modules/companies/SET_ACTIVE_COMPANIES_NAME',companies.name)
       this.$modal.show('clientForm');
-      this.$setCompaniesFormCache(companiesId,form);
+      this.$setCompaniesFormCache(companies.id,form);
       this.$nuxt.$loading.finish()
     }
   }
@@ -75,12 +81,9 @@ export default {
 .cardWrapper {display: flex;flex-flow: column;align-items: center;margin:0 0 15px 0;}
 .cardDetailWrapper{padding-top: 15px;padding-bottom: 15px;width: 100%;background: #ffffff 0 0 no-repeat padding-box;box-shadow: 0 0 2px #00000066;}
 .countWrapper{display: flex;width:100%;align-items: flex-start}
-.dfCount{letter-spacing: -0.2px;color: #5F5F5F;font-size:13px;}
+.dfCount{letter-spacing: -0.2px;color: var(--text-soft-black);font-size:13px;}
 .dotted{margin:0 10px;}
-.cardTitle{font-size:20px;font-weight: 600;color: #1A1A1A;margin:10px 0 0 0;display: flex;width: 100%;line-height: 1.3;}
+.cardTitle{font-size:20px;font-weight: 600;color: var(--text-form-black);margin:10px 0 0 0;display: flex;width: 100%;line-height: 1.3;}
 .cardRatingWrapper{margin: 15px 0 0 0;}
 .offerWrapper{margin:15px 0 0 0;}
-
-
-
 </style>

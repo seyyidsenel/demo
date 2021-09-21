@@ -21,6 +21,10 @@ export default {
     card : () => import('~/components/card')
   },
   methods : {
+    /**
+     * Metot companies list'esini getirir.
+     * @returns {Promise<void>}
+     */
     async dispatchCompanies(){
       this.companies = await this.$repositories.companyApi.list();
       this.$nuxt.$loading.finish()

@@ -8,3 +8,7 @@
   .selectPhone{width:90px;}
   .customPhone .innerField:first-child{margin:0 10px 0 0;}
 }
+
+@media only screen and (max-width : 1023px){
+  .m-body {height: calc(100vh - 45px);overflow: auto;}
+}

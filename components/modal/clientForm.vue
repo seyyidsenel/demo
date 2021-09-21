@@ -41,12 +41,22 @@
 <script>
 export default {
   methods: {
+    /**
+     * Modal açılmadan hemen önce tetiklenir. Modal interceptor
+     */
     beforeOpen(){
       document.querySelector('body').classList.add('lockedBody');
     },
+    /**
+     * Modal kapanmadan hemen önce tetiklenir. Modal interceptor
+     */
     beforeClose(){
       document.querySelector('body').classList.remove('lockedBody');
     },
+    /**
+     * Kullanıcı companies form'u bağarılır bir şekilde göndermiştir.
+     * @param _event
+     */
     sendCompaniesForm(_event){
       let self = this;
       self.$nuxt.$loading.start()
@@ -62,14 +72,13 @@ export default {
     customInput : () => import('~/components/global/formInput'),
   },
   computed : {
+    /**
+     * Property geriye o anda hangi companies'in formunu açmış ise, aktif form'u state'den geriye return eder.
+     * @returns {[]} => tıklanan companies form
+     */
     activeCompaniesForm() {
       return this.$store.state.modules.companies.activeForm
     }
   },
 };
 </script>
-
-<style>
-
-
-</style>
