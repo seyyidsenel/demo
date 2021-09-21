@@ -1,69 +1,114 @@
-# dugun.com
+## Introduction
 
-## Build Setup
+- #### Users can list all firms and choose one of them.
+- #### Users can easily post their request to the firm according to their needs.
 
-```bash
-# install dependencies
-$ npm install
+## Code Samples
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+> Axios Instance &  Wrap
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+#### *`api/index.js`*
+```` javascript
+async function post (url, body, headers) {
+  let header = '';
+  if (headers) header = { headers: headers };
+  return await axios.post(url,body,header).then((response) => {
+    return handleResponse(response);
+  }).catch((error) => {
+    return handleError(error.response);
+  })
+}
 
-# generate static project
-$ npm run generate
+async function put (url, body) {
+  return await axios.put(url,body).then((response) => {
+    return handleResponse(response);
+  }).catch((error) => {
+    return handleError(error.response);
+  })
+}
+
+// prefixed with underscored because delete is a reserved word in javascript
+async function _delete (url,headers) {
+  let header = '';
+  if (headers) header = { headers: headers };
+  return await axios.delete(url,header).then((response) => {
+    return handleResponse(response);
+  }).catch((error) => {
+    return handleError(error.response);
+  })
+}
+
+// handler functions
+function handleResponse (response) {
+  if (response.status === 200) return response.data;
+  return handleError(response);
+}
+
+// error handling
+function handleError (response){
+  // swagger'da api'lerin içerisinde error model'i göremediğim için responsu direk return ediyorum.
+  // todo: herhangi bir handle işlemi yapılmadı.
+  return response
+}
+````
+
+### *`api/config.js`*
+```` javascript
+const baseURL = "https://private-1be47-duguncomapis.apiary-mock.com/";
+const defaultConfiguration = {
+  baseURL : baseURL,
+  headers : { "Content-Type": "application/json" },
+  timeout : 1000 * 30,
+};
+
+module.exports = defaultConfiguration;
+````
+
+> Api Repository
+
+### *`repositories/repository.js`*
+``` javascript
+import CompanyRepository from '~/repositories/companies'
+import service from '../api/index'
+
+export default () => ({
+  companyApi: CompanyRepository(service),
+})
+
 ```
 
-For detailed explanation on how things work, check out the [documentation](https://nuxtjs.org).
-
-## Special Directories
-
-You can create the following extra directories, some of which have special behaviors. Only `pages` is required; you can delete them if you don't want to use their functionality.
-
-### `assets`
-
-The assets directory contains your uncompiled assets such as Stylus or Sass files, images, or fonts.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/assets).
-
-### `components`
-
-The components directory contains your Vue.js components. Components make up the different parts of your page and can be reused and imported into your pages, layouts and even other components.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/components).
-
-### `layouts`
-
-Layouts are a great help when you want to change the look and feel of your Nuxt app, whether you want to include a sidebar or have distinct layouts for mobile and desktop.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/layouts).
+### *`repositories/companies.js`*
+``` javascript
+export default (service) => ({
+  async list() {
+    return await service.get('companies');
+  },
+  async getFormById(id) {
+    return await service.get(`companies/${id}/forms`);
+  },
+})
+```
 
 
-### `pages`
 
-This directory contains your application views and routes. Nuxt will read all the `*.vue` files inside this directory and setup Vue Router automatically.
+## Installation
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/get-started/routing).
+## Project setup
+###### install all dependencies
 
-### `plugins`
+npm install
 
-The plugins directory contains JavaScript plugins that you want to run before instantiating the root Vue.js Application. This is the place to add Vue plugins and to inject functions or constants. Every time you need to use `Vue.use()`, you should create a file in `plugins/` and add its path to plugins in `nuxt.config.js`.
+### Compiles and hot-reloads for development
+###### serve with hot reload at localhost:3000
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/plugins).
+npm run dev
 
-### `static`
 
-This directory contains your static files. Each file inside this directory is mapped to `/`.
+### Compiles and minifies for production
 
-Example: `/static/robots.txt` is mapped as `/robots.txt`.
+npm run build
 
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/static).
 
-### `store`
+### Lints and fixes files
 
-This directory contains your Vuex store files. Creating a file in this directory automatically activates Vuex.
-
-More information about the usage of this directory in [the documentation](https://nuxtjs.org/docs/2.x/directory-structure/store).
+npm run lint
